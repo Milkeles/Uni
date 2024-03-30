@@ -1,4 +1,4 @@
-// (Works? HUH?)
+// NOTE: Works, check what was wrong with the one on the olympiad, was the exact same.
 #include <bits/stdc++.h>
 
 #pragma GCC optimize("O3,unroll-loops")
