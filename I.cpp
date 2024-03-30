@@ -16,7 +16,7 @@ int main() {
     int n, num;
     int sum = 0;
     double total = 0.0;
-    int min1, min2;
+
     while(m){
         set <int> nums;
         cin >> n;
