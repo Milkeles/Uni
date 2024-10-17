@@ -11,22 +11,22 @@ private:
         Node<T>* left;
         Node<T>* right;
 
-        node(const & T data) {
+        Node(const T& data) {
             this->data = data;
             this->left = nullptr;
             this->right = nullptr;
         }
     };
 
-    node<T>* root;
+    Node<T>* root;
     void destroy(Node* node);
 
 public:
     BinaryTree();
     ~BinaryTree();
-    void insert(Node*, const T&);
+    void insert(Node*&, const T&);
     bool search(Node*, const T&);
-    void remove(Node*, const T&);
+    void remove(Node*&, const T&);
     void leftRootRightTraversal(Node*);
     void rightRootLeftTraversal(Node*);
     void rootLeftRightTraversal(Node*);
@@ -56,15 +56,16 @@ BinaryTree<T>::~BinaryTree() {
 
 
 template <class T>
-void BinaryTree<T>::insert(Node* node, const T& value) {
+void BinaryTree<T>::insert(Node*& node, const T& value) {
     if (node == nullptr) {
-        node = new Node(value);
-    } else if (node->data > value) {
+        node = new Node<T>(value);
+    } else if (value < node->data) {
         insert(node->left, value);
-    } else if (node-> data < value) {
+    } else if (value > node->data) {
         insert(node->right, value);
     }
 }
+
 
 template <class T>
 bool BinaryTree<T>::search(Node* node, const T& value) {
