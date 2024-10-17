@@ -82,24 +82,28 @@ bool BinaryTree<T>::search(Node* node, const T& value) {
 }
 
 template <class T>
-void BinaryTree<T>::remove(Node* node, const T& value) {
+void BinaryTree<T>::remove(Node*& node, const T& value) {
     if (node == nullptr) {
         return;
-    } else if (node->data > value) {
+    } else if (value < node->data) {
         remove(node->left, value);
-    } else if (node->data < value) {
+    } else if (value > node->data) {
         remove(node->right, value);
-    } else if (node->data == value) {
+    } else {
+        // Node found
         if (node->left != nullptr && node->right != nullptr) {
-            Node<T>* min = node->right;
-
-            while(min->left != nullptr) {
-                min = min->left;
+            // Node with two children: Find inorder successor (smallest in the right subtree)
+            Node* minNode = node->right;
+            while (minNode->left != nullptr) {
+                minNode = minNode->left;
             }
-            node->data = min->data;
-            remove(node->right, min->data);
+            // Copy the inorder successor's data to this node
+            node->data = minNode->data;
+            // Delete the inorder successor
+            remove(node->right, minNode->data);
         } else {
-            Node<T>* temp = node;
+            // Node with one child or no child
+            Node* temp = node;
             if (node->left != nullptr) {
                 node = node->left;
             } else {
@@ -109,6 +113,7 @@ void BinaryTree<T>::remove(Node* node, const T& value) {
         }
     }
 }
+
 
 template <class T>
 void BinaryTree<T>::leftRootRightTraversal(Node* node = nullptr) {
